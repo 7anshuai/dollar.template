@@ -4,6 +4,8 @@
 
 ;(function($) {
 
+  var nativeKeys = Object.keys;
+
   // An internal function for creating assigner functions.
   var createAssigner = function(keysFunc, undefinedOnly) {
     return function(obj) {
@@ -22,6 +24,18 @@
     };
   };
 
+  // Retrieve the names of an object's own properties.
+  // Delegates to **ECMAScript 5**'s native `Object.keys`
+  $.keys = function(obj) {
+    if (!$.isObject(obj)) return [];
+    if (nativeKeys) return nativeKeys(obj);
+    var keys = [];
+    for (var key in obj) if (_.has(obj, key)) keys.push(key);
+    // Ahem, IE < 9.
+    // if (hasEnumBug) collectNonEnumProps(obj, keys);
+    return keys;
+  };
+
   // Retrieve all the property names of an object.
   $.allKeys = function(obj) {
     if (!$.isObject(obj)) return [];
@@ -35,6 +49,34 @@
     var type = typeof obj;
     return type === 'function' || type === 'object' && !!obj;
   };
+
+  // List of HTML entities for escaping.
+  var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '`': '&#x60;'
+  };
+  // var unescapeMap = _.invert(escapeMap);
+
+  // Functions for escaping and unescaping strings to/from HTML interpolation.
+  var createEscaper = function(map) {
+    var escaper = function(match) {
+      return map[match];
+    };
+    // Regexes for identifying a key that needs to be escaped
+    var source = '(?:' + $.keys(map).join('|') + ')';
+    var testRegexp = RegExp(source);
+    var replaceRegexp = RegExp(source, 'g');
+    return function(string) {
+      string = string == null ? '' : '' + string;
+      return testRegexp.test(string) ? string.replace(replaceRegexp, escaper) : string;
+    };
+  };
+  $.escape = createEscaper(escapeMap);
+  // $.unescape = createEscaper(unescapeMap);
 
   // Fill in a given object with default properties.
   $.defaults = createAssigner($.allKeys, true);
@@ -92,7 +134,7 @@
       index = offset + match.length;
 
       if (escape) {
-        source += "'+\n((__t=(" + escape + "))==null?'':_.escape(__t))+\n'";
+        source += "'+\n((__t=(" + escape + "))==null?'':$.escape(__t))+\n'";
       } else if (interpolate) {
         source += "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'";
       } else if (evaluate) {
