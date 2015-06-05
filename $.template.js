@@ -50,6 +50,16 @@
     return type === 'function' || type === 'object' && !!obj;
   };
 
+  // Invert the keys and values of an object. The values must be serializable.
+  $.invert = function(obj) {
+    var result = {};
+    var keys = $.keys(obj);
+    for (var i = 0, length = keys.length; i < length; i++) {
+      result[obj[keys[i]]] = keys[i];
+    }
+    return result;
+  };
+
   // List of HTML entities for escaping.
   var escapeMap = {
     '&': '&amp;',
@@ -59,7 +69,7 @@
     "'": '&#x27;',
     '`': '&#x60;'
   };
-  // var unescapeMap = _.invert(escapeMap);
+  var unescapeMap = $.invert(escapeMap);
 
   // Functions for escaping and unescaping strings to/from HTML interpolation.
   var createEscaper = function(map) {
@@ -76,7 +86,7 @@
     };
   };
   $.escape = createEscaper(escapeMap);
-  // $.unescape = createEscaper(unescapeMap);
+  $.unescape = createEscaper(unescapeMap);
 
   // Fill in a given object with default properties.
   $.defaults = createAssigner($.allKeys, true);
