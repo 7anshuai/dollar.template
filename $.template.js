@@ -4,35 +4,25 @@
 
 ;(function($) {
 
-  var nativeKeys = Object.keys;
+  // Is a given variable an object?
+  $.isObject = function(obj) {
+    var type = typeof obj;
+    return type === 'function' || type === 'object' && !!obj;
+  };
 
-  // An internal function for creating assigner functions.
-  var createAssigner = function(keysFunc, undefinedOnly) {
-    return function(obj) {
-      var length = arguments.length;
-      if (length < 2 || obj == null) return obj;
-      for (var index = 1; index < length; index++) {
-        var source = arguments[index],
-            keys = keysFunc(source),
-            l = keys.length;
-        for (var i = 0; i < l; i++) {
-          var key = keys[i];
-          if (!undefinedOnly || obj[key] === void 0) obj[key] = source[key];
-        }
-      }
-      return obj;
-    };
+  // Shortcut function for checking if an object has a given property directly
+  // on itself (in other words, not on a prototype).
+  $.has = function(obj, key) {
+    return obj != null && Object.prototype.hasOwnProperty.call(obj, key);
   };
 
   // Retrieve the names of an object's own properties.
   // Delegates to **ECMAScript 5**'s native `Object.keys`
   $.keys = function(obj) {
     if (!$.isObject(obj)) return [];
-    if (nativeKeys) return nativeKeys(obj);
+    if (Object.keys) return Object.keys(obj);
     var keys = [];
-    for (var key in obj) if (_.has(obj, key)) keys.push(key);
-    // Ahem, IE < 9.
-    // if (hasEnumBug) collectNonEnumProps(obj, keys);
+    for (var key in obj) if ($.has(obj, key)) keys.push(key);
     return keys;
   };
 
@@ -42,12 +32,6 @@
     var keys = [];
     for (var key in obj) keys.push(key);
     return keys;
-  };
-
-  // Is a given variable an object?
-  $.isObject = function(obj) {
-    var type = typeof obj;
-    return type === 'function' || type === 'object' && !!obj;
   };
 
   // Invert the keys and values of an object. The values must be serializable.
@@ -87,6 +71,24 @@
   };
   $.escape = createEscaper(escapeMap);
   $.unescape = createEscaper(unescapeMap);
+
+  // An internal function for creating assigner functions.
+  var createAssigner = function(keysFunc, undefinedOnly) {
+    return function(obj) {
+      var length = arguments.length;
+      if (length < 2 || obj == null) return obj;
+      for (var index = 1; index < length; index++) {
+        var source = arguments[index],
+            keys = keysFunc(source),
+            l = keys.length;
+        for (var i = 0; i < l; i++) {
+          var key = keys[i];
+          if (!undefinedOnly || obj[key] === void 0) obj[key] = source[key];
+        }
+      }
+      return obj;
+    };
+  };
 
   // Fill in a given object with default properties.
   $.defaults = createAssigner($.allKeys, true);
@@ -180,4 +182,4 @@
 
     return template;
   };
-})($)
+})($);
