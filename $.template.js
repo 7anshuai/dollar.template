@@ -2,7 +2,28 @@
 // code copied from Underscore.js 1.8.3
 // view source code in http://underscorejs.org
 
-;(function($) {
+;(function() {
+
+  // Establish the root object, `window` in the browser, or `exports` on the server.
+  var root = this;
+
+  var $ = root.$ || function() {};
+
+  // Export the dollar object for **Node.js**, with
+  // backwards-compatibility for the old `require()` API. If we're in
+  // the browser, add `dollar` as a global object.
+  if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = $;
+    }
+    exports.$ = $;
+  } else if (typeof define === 'function' && define.amd) {
+    define([], function() {
+      return $;
+    });
+  } else {
+    root.$ = $;
+  }
 
   // Is a given variable an object?
   $.isObject = function(obj) {
@@ -182,4 +203,5 @@
 
     return template;
   };
-})($);
+
+}.call(this));
