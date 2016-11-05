@@ -1,0 +1,29 @@
+{
+  "name": "dollar.template",
+  "version": "0.0.1",
+  "description": "Using $.template() like _.template()",
+  "main": "dollar.template.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/7anshuai/dollar.template.git"
+  },
+  "keywords": [
+    "template",
+    "underscore.template",
+    "jQuery.template",
+    "Zepto.template",
+    "$.template"
+  ],
+  "author": "7anshuai",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^3.1.2",
+    "should": "^11.1.1"
+  }
+}
