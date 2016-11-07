@@ -1,0 +1,25 @@
+{
+  "name": "dollar.template",
+  "version": "0.0.4",
+  "description": "Using $.template() like _.template()",
+  "main": "dollar.template.js",
+  "authors": [
+    "7anshuai"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "template",
+    "underscore.template",
+    "jQuery.template",
+    "Zepto.template",
+    "$.template"
+  ],
+  "homepage": "https://github.com/7anshuai/dollar.template",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

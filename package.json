@@ -1,6 +1,6 @@
 {
   "name": "dollar.template",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Using $.template() like _.template()",
   "main": "dollar.template.js",
   "directories": {

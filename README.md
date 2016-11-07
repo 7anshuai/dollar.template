@@ -8,8 +8,16 @@ Also exports some dependency methods to $.
 
 ## Installation
 
+### NPM
+
 ```
 npm install dollar.template
+```
+
+### Bower
+
+```
+bower install dollar.template
 ```
 
 ## Usage
