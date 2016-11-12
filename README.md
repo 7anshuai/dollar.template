@@ -1,5 +1,7 @@
 # $.template() [![Build Status](https://travis-ci.org/7anshuai/dollar.template.svg?branch=master)](https://travis-ci.org/7anshuai/dollar.template)
 
+[![NPM](https://nodei.co/npm/dollar.template.png?downloads=true)](https://nodei.co/npm/dollar.template/)
+
 Use $.template() like _.template(), compiles JavaScript templates into functions that can be evaluated for rendering. .
 
 Code copied from [Underscore.js](http://underscorejs.org), just renamed `_.template` to `$.template`. 
