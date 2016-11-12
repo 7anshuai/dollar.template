@@ -1,4 +1,4 @@
-# $.template()
+# $.template() [![Build Status](https://travis-ci.org/7anshuai/dollar.template.svg?branch=master)](https://travis-ci.org/7anshuai/dollar.template)
 
 Use $.template() like _.template(), compiles JavaScript templates into functions that can be evaluated for rendering. .
 
