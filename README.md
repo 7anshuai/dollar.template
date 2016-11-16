@@ -49,6 +49,36 @@ var compiled = $.template("hello: <%= name %>");
 compiled({name: 'moe'}); // "hello: moe"
 ```
 
+### Require.js
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>$.template()</title>
+</head>
+<body>
+  <div></div>
+  <script src="bower_components/requirejs/require.js"></script>
+  <script>
+    requirejs.config({
+      baseUrl: "./",
+      paths: {
+        jquery: "bower_components/jquery/dist/jquery",
+      }
+    });
+  </script>
+  <script>
+    require(["bower_components/dollar.template/dollar.template"], function ($){
+      var compiled = $.template("hello: <%= name %>");
+      $("div").text(compiled({name: "moe"})); // "hello: moe"
+    });
+  </script>
+</body>
+</html>
+```
+
 ## Testing
 
 ```

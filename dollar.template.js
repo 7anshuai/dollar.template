@@ -7,19 +7,20 @@
   // Establish the root object, `window` in the browser, or `exports` on the server.
   var root = this;
 
-  var $ = root.$ || function() {};
+  var $ = root.$ || {};
 
   // Export the dollar object for **Node.js**, with
   // backwards-compatibility for the old `require()` API. If we're in
-  // the browser, add `dollar` as a global object.
+  // the browser, add `$` as a global object.
   if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {
       exports = module.exports = $;
     }
     exports.$ = $;
   } else if (typeof define === 'function' && define.amd) {
-    define([], function() {
-      return $;
+    define(['jquery'], function(jQuery) {
+      jQuery.extend(jQuery, $);
+      return jQuery;
     });
   } else {
     root.$ = $;
