@@ -2,11 +2,10 @@
 
 [![NPM](https://nodei.co/npm/dollar.template.png?downloads=true)](https://nodei.co/npm/dollar.template/)
 
-Use $.template() like _.template(), compiles JavaScript templates into functions that can be evaluated for rendering. .
+Use $.template() like _.template(), compiles JavaScript templates into functions that can be evaluated for rendering.
 
-Code copied from [Underscore.js](http://underscorejs.org), just renamed `_.template` to `$.template`. 
+Code copied from [Underscore.js](http://underscorejs.org), just renamed `_.template` to `$.template`, and exports some dependency methods to $. You can use it as a jQuery or Zepto plugin, or use directly in Node.js. 
 
-Also exports some dependency methods to $.
 
 ## Installation
 
@@ -24,10 +23,9 @@ bower install dollar.template
 
 ## Usage
 
-
 ### Node.js
 
-```
+```javascript
 var template = require('dollar.template').template;
 
 var compiled = template("hello: <%= name %>");
@@ -39,19 +37,19 @@ tmpl({value: '<script>'}); // "<b>&lt;script&gt;</b>"
 
 ### Browser
 
-```
-<script src="/js/jquery.latest.js"></script>
+```html
+<script src="/js/jquery.js"></script> <!-- also works with zepto -->
 <script src="/js/dollar.template.js"></script>
 ```
 
-```
+```javascript
 var compiled = $.template("hello: <%= name %>");
 compiled({name: 'moe'}); // "hello: moe"
 ```
 
 ### Require.js
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,13 +63,13 @@ compiled({name: 'moe'}); // "hello: moe"
     requirejs.config({
       baseUrl: "./",
       paths: {
-        jquery: "bower_components/jquery/dist/jquery",
+        jquery: "bower_components/jquery/dist/jquery", // set jquery path to zepto if we want to use zepto
       }
     });
   </script>
   <script>
-    require(["bower_components/dollar.template/dollar.template"], function ($){
-      var compiled = $.template("hello: <%= name %>");
+    require(["jquery", "bower_components/dollar.template/dollar.template"], function ($, template){
+      var compiled = template("hello: <%= name %>"); // you can use $.template directly
       $("div").text(compiled({name: "moe"})); // "hello: moe"
     });
   </script>

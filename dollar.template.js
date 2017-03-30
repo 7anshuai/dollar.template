@@ -20,7 +20,7 @@
   } else if (typeof define === 'function' && define.amd) {
     define(['jquery'], function(jQuery) {
       jQuery.extend(jQuery, $);
-      return jQuery;
+      return jQuery.template;
     });
   } else {
     root.$ = $;
