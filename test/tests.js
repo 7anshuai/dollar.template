@@ -1,5 +1,5 @@
-var should = require('should');
-var $ = require('../dollar.template');
+var should = typeof require == 'function' ? require('should') : window.should;
+var $ = typeof require == 'function' ? require('../dollar.template') : window.$;
 
 describe('dollar.template', function() {
   it('interpolate', function() {
@@ -42,5 +42,5 @@ describe('dollar.template', function() {
     var result = $.template('Hello {{ name }}!')({name: 'Mustache'});
     result.should.equal('Hello Mustache!');
   });
-  
+
 });

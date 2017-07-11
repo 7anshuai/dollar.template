@@ -5,3 +5,7 @@ node_js:
   - "6"
   - "4"
   - "0.12"
+script:
+  - npm test
+  - npm run test-browser
+after_success: npm run cover
