@@ -12,13 +12,13 @@ Code copied from [Underscore.js](http://underscorejs.org), just renamed `_.templ
 ### NPM
 
 ```
-npm install dollar.template
+$ npm install dollar.template
 ```
 
 ### Bower
 
 ```
-bower install dollar.template
+$ bower install dollar.template
 ```
 
 ## Usage
@@ -80,7 +80,7 @@ compiled({name: 'moe'}); // "hello: moe"
 ## Testing
 
 ```
-npm test
+$ npm test
 ```
 
 ## API
